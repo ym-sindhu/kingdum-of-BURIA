@@ -11,7 +11,8 @@ public:
     void reset();
     void setPosition(sf::Vector2f pos);
     void draw(sf::RenderWindow& window);
-    sf::Sprite getSprite();
+    sf::FloatRect getHitBox() const;
+    sf::Sprite& getSprite();
 
 
     sf::Texture texture;

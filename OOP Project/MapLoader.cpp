@@ -5,9 +5,14 @@
 
 using json = nlohmann::json;
 
-MapLoader::MapLoader(const std::string& filePath, const std::string& tilesetPath, int tileWidth, int tileHeight)
-    : filePath(filePath), tilesetPath(tilesetPath), tileWidth(tileWidth), tileHeight(tileHeight) {
+void MapLoader::open(const std::string& filePath, const std::string& tilesetPath, int tileWidth, int tileHeight)
+{
+    this->filePath = filePath;
+    this->tilesetPath = tilesetPath;
+    this->tileWidth = tileWidth;
+    this->tileHeight = tileHeight;
 }
+
 
 void MapLoader::load() {
     std::ifstream file(filePath);
@@ -19,7 +24,7 @@ void MapLoader::load() {
     json mapData;
     file >> mapData;
 
-    mapWidth = mapData["width"];
+    mapWidth = mapData["width"];    
     mapHeight = mapData["height"];
 
     if (!tileset.loadFromFile(tilesetPath)) {

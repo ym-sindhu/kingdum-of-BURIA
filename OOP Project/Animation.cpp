@@ -1,4 +1,4 @@
-#include "Animation.h"
+﻿#include "Animation.h"
 
 Animation::Animation(const std::string& texturePath, int l, int t, int fw, int fh, int framesCount, float ft, bool oneShot)
     : left(l), top(t), frameWidth(fw), frameHeight(fh), totalFrames(framesCount), frameTime(ft), isOneShot(oneShot),
@@ -8,7 +8,7 @@ Animation::Animation(const std::string& texturePath, int l, int t, int fw, int f
         std::cerr << "Failed to load " << texturePath << '\n';
     }
     sprite.setTexture(texture);
-    
+    std::cout << "loaded " << texturePath << std::endl;
 
     frames.clear();
     for (int i = 0; i < totalFrames; i++) {
@@ -18,9 +18,6 @@ Animation::Animation(const std::string& texturePath, int l, int t, int fw, int f
     if (!frames.empty())
         sprite.setTextureRect(frames[0]);
     sprite.setScale(2.f, 2.f);
-
-    
-
 }
 
 Animation::Animation()
@@ -64,63 +61,34 @@ void Animation::setPosition(sf::Vector2f pos) {
     sprite.setPosition(pos);
 }
 
-void Animation::draw(sf::RenderWindow& window) {
-
+void Animation::draw(sf::RenderWindow& window) 
+{    
+    if (!sprite.getTexture()) {
+        std::cout << "Sprite has no texture!" << std::endl;
+        sf::RectangleShape fallback(sf::Vector2f(64.f, 64.f));
+        fallback.setFillColor(sf::Color::Red);
+        fallback.setPosition(sprite.getPosition());
+        window.draw(fallback);
+        return;
+    }
     window.draw(sprite);
+
+    //UNCOMMENT TO SEE ENEMY HITBOXES
+   /* sf::RectangleShape hitbox(sf::Vector2f(sprite.getGlobalBounds().width, sprite.getGlobalBounds().height));
+    hitbox.setPosition(sprite.getPosition());
+    hitbox.setFillColor(sf::Color::Transparent);
+    hitbox.setOutlineColor(sf::Color::Red);
+    hitbox.setOutlineThickness(3.f);
+    window.draw(hitbox);*/
 }
 
-sf::Sprite Animation::getSprite() {
+sf::FloatRect Animation::getHitBox() const
+{
+    sf::Vector2f pos = sprite.getPosition();
+    return sf::FloatRect(pos.x + 30, pos.y + 5, frameWidth - 80, frameHeight - 0);
+
+}
+
+sf::Sprite& Animation::getSprite() {
     return sprite;
 }
-
-
-
-
-
-
-
-
-
-
-
-//#include "Animation.h"
-//
-//Animation::Animation(sf::Texture *texture, sf::Vector2u imageCount, float switchTime)
-//{
-//	this->imageCount = imageCount;
-//	this->switchTime = switchTime;
-//	totalTime = 0;
-//	currentImage.x = 0;
-//	
-//	uvRect.width = texture->getSize().x / float(imageCount.x);
-//	uvRect.height = texture->getSize().y / float(imageCount.y);
-//}
-//
-//void Animation::update(int row, float deltaTime,bool isRight)
-//{
-//	currentImage.y = row;
-//	totalTime += deltaTime;
-//
-//	if (totalTime >= switchTime)
-//	{
-//		totalTime -= switchTime;
-//		currentImage.x++;
-//		if (currentImage.x >= imageCount.x)
-//		{
-//			currentImage.x = 0;
-//		}
-//	}
-//
-//	uvRect.left = currentImage.x * uvRect.width;
-//
-//	if(isRight)
-//	{
-//		uvRect.top = currentImage.y * uvRect.height;
-//		uvRect.width = abs(uvRect.width);
-//	}
-//	else
-//	{
-//		uvRect.left = (currentImage.x + 1) * abs(uvRect.width);
-//		uvRect.width = -abs(uvRect.width);
-//	}
-//}

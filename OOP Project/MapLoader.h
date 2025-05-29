@@ -5,8 +5,8 @@
 
 class MapLoader {
 public:
-    MapLoader(const std::string& filePath, const std::string& tilesetPath, int tileWidth, int tileHeight);
     MapLoader() {}
+    void open(const std::string& filePath, const std::string& tilesetPath, int tileWidth, int tileHeight);
     void load();
     void draw(sf::RenderWindow& window);
     const std::vector<sf::FloatRect>& getCollisionRects() const;

@@ -5,5 +5,4 @@
 class Menu {
 public:
 	void render(sf::RenderWindow& window);
-	
 };
