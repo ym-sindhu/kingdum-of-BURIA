@@ -142,23 +142,24 @@
     <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="NormalEnemy.cpp" />
+    <ClCompile Include="Obelisk.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="source.cpp" />
-    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Global.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="EnemyInfo.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="MapLoader.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NormalEnemy.h" />
+    <ClInclude Include="Obelisk.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="UI.h" />
+    <ClInclude Include="Sound.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

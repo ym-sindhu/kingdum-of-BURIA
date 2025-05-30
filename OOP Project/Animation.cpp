@@ -17,7 +17,6 @@ Animation::Animation(const std::string& texturePath, int l, int t, int fw, int f
 
     if (!frames.empty())
         sprite.setTextureRect(frames[0]);
-    sprite.setScale(2.f, 2.f);
 }
 
 Animation::Animation()

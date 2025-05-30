@@ -1,17 +1,19 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Enemy.h"
-#include "EnemyInfo.h"
+#include "Global.h"
 
 class NormalEnemy : public Enemy {
 private:
     float patrolRange;
     sf::Vector2f initialPos;
     bool movingRight;
+    bool dead;
     int health;
     float cooldown;
     Animation moveAnim;
     Animation attackAnim;
+    Animation deathAnim;
     Animation* currentAnim;
 public:
     NormalEnemy(const EnemyInfo& animInfo, sf::Vector2f pos, float speed, float patrolRange, bool moving);

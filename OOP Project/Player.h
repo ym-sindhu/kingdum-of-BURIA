@@ -2,9 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include "Animation.h"
 #include "MapLoader.h"
+#include "Global.h"
 class Player {
 private:
-    Animation walkAnim, idleAnim, jumpAnim, attack1, attack2;
+    Animation walkAnim, idleAnim, jumpAnim, attack1, attack2, deathAnim;
     Animation* currentAnim;
     float playerWidth;
     sf::Sprite sprite;
@@ -20,15 +21,12 @@ private:
     float gravity;
     float jumpStrength;
 
-    bool attacking;
     bool onGround;
     bool facingRight;
-
 public:
     Player();
     void update(float dt, const std::vector<sf::FloatRect>& groundRects, MapLoader& map);
     void render(sf::RenderWindow& window, const sf::View& view);
-    bool hasWon();
     bool isDead();
     void reset();
     void renderHealthBar(sf::RenderWindow& window);
@@ -37,4 +35,7 @@ public:
     sf::Vector2f getPosition() const;
     sf::FloatRect getAttackHitbox() const;
     bool isAttacking() const;
+    bool attackKeyHeld = false;
+    bool didDamage = false;
+    bool attacking;
 };

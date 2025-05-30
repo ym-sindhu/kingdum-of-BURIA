@@ -5,8 +5,10 @@ Boss::Boss(const EnemyInfo& animInfo, sf::Vector2f pos, int health, float speed)
     maxHealth(health),
     currentHealth(health),
     moveAnim(animInfo.moveTexture, animInfo.left, animInfo.top, animInfo.frameWidth, animInfo.frameHeight, animInfo.moveFrames, animInfo.moveFrameTime, false),
-    attackAnim(animInfo.attackTexture, animInfo.left, animInfo.top, animInfo.frameWidth, animInfo.frameHeight, animInfo.attackFrames, animInfo.attackFrameTime, true)
+    attackAnim(animInfo.attackTexture, animInfo.left, animInfo.top, animInfo.frameWidth, animInfo.frameHeight, animInfo.attackFrames, animInfo.attackFrameTime, true),
+    deathAnim(animInfo.deathTexture, animInfo.left, animInfo.top, animInfo.frameWidth, animInfo.frameHeight, animInfo.deathFrames, animInfo.deathFrameTime, true)
 {
+    dead = false;
     currentAnim = &moveAnim;
     currentAnim->setPosition(position);
     sprite = currentAnim->getSprite();
@@ -20,7 +22,13 @@ Boss::Boss(const EnemyInfo& animInfo, sf::Vector2f pos, int health, float speed)
 void Boss::update(float deltaTime, sf::Vector2f playerPos, Player& player)
 {
     float distance = std::abs(playerPos.x - position.x);
-
+    if (currentHealth <= 0)
+    {
+        currentHealth = 0;
+        dead = true;
+        currentAnim = &deathAnim;
+        currentAnim->setPosition(position);
+    } else
     if (distance > 150.f) {
         if (playerPos.x < position.x) {
             position.x -= speed * deltaTime;
@@ -44,11 +52,11 @@ void Boss::update(float deltaTime, sf::Vector2f playerPos, Player& player)
     currentAnim->setPosition(position);
 
     if (!facingRight) {
-        currentAnim->getSprite().setScale(-1.5f, 1.5f);
+        currentAnim->getSprite().setScale(-scaleX, scaleY);
         currentAnim->getSprite().setOrigin(64, 0);
     }
     else {
-        currentAnim->getSprite().setScale(1.5f, 1.5f);
+        currentAnim->getSprite().setScale(scaleX, scaleY);
         currentAnim->getSprite().setOrigin(0, 0);
     }
 
@@ -83,10 +91,16 @@ void Boss::takeDamage()
     if (currentHealth < 0) 
         currentHealth = 0;
 }
+
+void Boss::setscale(float x, float y) {
+    scaleX = x;
+    scaleY = y;
+}
+
 bool Boss::isDead() const
 {
-    if (currentHealth <= 0)
-    return true;
+    if (dead == true && deathAnim.isFinished)
+        return true;
 
     return false;
 }

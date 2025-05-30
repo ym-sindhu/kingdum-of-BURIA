@@ -23,7 +23,7 @@ void Menu::render(sf::RenderWindow& window) {
 
     // Play Option
     sf::Text play("PLAY", font, 36);
-    play.setFillColor(sf::Color::Red);
+    play.setFillColor(sf::Color::Black);
     sf::FloatRect playBounds = play.getLocalBounds();
     play.setOrigin(playBounds.width / 2, playBounds.height / 2);
     play.setPosition(window.getSize().x / 2.f, 200);
@@ -36,12 +36,12 @@ void Menu::render(sf::RenderWindow& window) {
 
     // Continue Option
     sf::Text cont("CONTINUE", font, 36);
-    cont.setFillColor(sf::Color::Red);
+    cont.setFillColor(sf::Color::Black);
     sf::FloatRect contBounds = cont.getLocalBounds();
     cont.setOrigin(contBounds.width / 2, contBounds.height / 2);
     cont.setPosition(window.getSize().x / 2.f, 300);
 
-    sf::Text contHint("PRESS L TO LOAD GAME", font, 20);
+    sf::Text contHint("PRESS C TO LOAD GAME", font, 20);
     contHint.setFillColor(sf::Color::Black);
     sf::FloatRect chBounds = contHint.getLocalBounds();
     contHint.setOrigin(chBounds.width / 2, chBounds.height / 2);
@@ -60,6 +60,6 @@ void Menu::render(sf::RenderWindow& window) {
     window.draw(playHint);
     window.draw(cont);
     window.draw(contHint);
-    window.draw(quit);
+   // window.draw(quit);
 
 }

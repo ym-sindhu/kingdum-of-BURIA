@@ -1,30 +1,29 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "Global.h"
 #include "Player.h"
 #include "Menu.h"
 #include "LevelManager.h"
-#include "UI.h"
 #include "MapLoader.h"
 #include <json.hpp>
 #include "Enemy.h"
 #include "NormalEnemy.h"
 #include "Boss.h"
-#include "EnemyInfo.h"
+#include "Obelisk.h"
+#include "Sound.h"
 using json = nlohmann::json;
 
-enum class GameState {
-	MENU,PLAYING,PAUSED,GAME_OVER,LEVEL_COMPLETE
-};
 class Game {
 private:
 	sf::RenderWindow window;
+	SoundManager soundManager;
 	GameState currentState;
 	int level;
+	bool levelFinished;
 	Menu menu;
 	LevelManager levelManager;
 	Player player;
-	UI ui;
 	MapLoader map;
 	sf::View cameraView;
 	std::vector<sf::FloatRect> groundRects;
@@ -32,6 +31,7 @@ private:
 	sf::Sprite backgroundSprite;
 	sf::Font font;
 	std::vector<std::unique_ptr<Enemy>> enemies;
+	std::unique_ptr<Obelisk> obelisk;
 	std::vector<sf::Sprite> tiles;
 public:
 	Game();

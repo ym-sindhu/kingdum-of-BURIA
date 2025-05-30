@@ -1,6 +1,6 @@
 #include "LevelManager.h"
-const std::string saveFile = "save.txt";
-LevelManager::LevelManager(){}
+const std::string saveFile = "C:\\Users\\moeez\\source\\repos\\OOP Project\\OOP Project\\Data\\save.txt";
+LevelManager::LevelManager() { currentLevel = 1; }
  
 void LevelManager::loadSavedLevel() {
     std::ifstream file(saveFile);
@@ -12,8 +12,11 @@ void LevelManager::loadSavedLevel() {
         currentLevel = 1; 
     }
 }
+
 void LevelManager::saveLevel() const {
     std::ofstream file(saveFile);
+    if (!file.is_open())
+        std::cout << "Failed to open file" << "\n";
     if (file.is_open()) {
         file << currentLevel;
         file.close();
@@ -36,4 +39,3 @@ void LevelManager::nextLevel() {
     currentLevel++;
     saveLevel();
 }
-
